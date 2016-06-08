@@ -1,0 +1,41 @@
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: #333;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  height: 100%;
+}
+
+.app ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.app li {
+  flex: 1;
+  min-width: 50px;
+  max-width: 25%;
+  /* height: 100px; */
+  list-style: none;
+}
+
+.app li > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 2000ms;
+}
+
+.app li > img.loaded {
+  opacity: 1;
+}
