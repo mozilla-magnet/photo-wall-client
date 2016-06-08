@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "browserify -t browserify-css index.js -o index.built.js",
-    "watch": "watchify -t browserify-css index.js -o index.built.js --debug"
+    "watch": "watchify -t browserify-css index.js -o index.built.js --debug",
+    "start": "nws -p 8002 -o"
   },
   "author": "",
   "license": "ISC",
@@ -14,9 +15,11 @@
     "browserify": "^13.0.1",
     "browserify-css": "^0.9.1"
   },
-
   "browserify-css": {
     "autoInject": true,
     "minify": true
+  },
+  "dependencies": {
+    "nws": "^1.1.1"
   }
 }
