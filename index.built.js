@@ -15,7 +15,7 @@ var app = new App();
 document.body.appendChild(app.el);
 
 },{"./lib/app":4}],3:[function(require,module,exports){
-var css = "body,html{height:100%;margin:0;background:#333}ul{margin:0;padding:0}.app{height:100%}.app ul{display:flex;flex-wrap:wrap}.app li{flex:1;min-width:50px;max-width:25%;list-style:none}.app li>img{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 2000ms}.app li>img.loaded{opacity:1}"; (require("browserify-css").createStyle(css, { "href": "lib/app.css"})); module.exports = css;
+var css = "body,html{height:100%;margin:0;background:#333}ul{margin:0;padding:1px}.app{height:100%}.app ul{display:flex;flex-wrap:wrap}.app li{box-sizing:border-box;flex:1;min-width:80px;max-width:25%;padding:2px;list-style:none}.app li>img{width:100%;height:100%;object-fit:cover;opacity:0;box-shadow:0 2px 10px rgba(0,0,0,.5);transform:scale(3);transition:all 400ms}.app li>img.loaded{transform:scale(1);opacity:1}"; (require("browserify-css").createStyle(css, { "href": "lib/app.css"})); module.exports = css;
 },{"browserify-css":5}],4:[function(require,module,exports){
 'use strict';
 
@@ -41,7 +41,7 @@ function App() {
 
   this.fetch()
     .then(items => {
-      this.items = items;
+      this.items = items.sort((a, b) => a < b);
       this.render();
     });
 }
@@ -94,6 +94,14 @@ App.prototype = {
 
   listen: function(callback) {
     var eventSource = new EventSource(`${SERVICE_URL}/images`);
+    eventSource.addEventListener('error', function() {
+      console.log('error');
+    });
+
+    eventSource.addEventListener('close', function() {
+      console.log('close');
+    });
+
     eventSource.addEventListener('newimage', event => {
       callback(event.data);
     });
